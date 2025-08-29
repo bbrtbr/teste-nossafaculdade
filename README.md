@@ -61,4 +61,8 @@ Agora, inicie o servidor de desenvolvimento do Next.js.
 npm run dev
 ```
 
+<<<<<<< HEAD
 A aplicação estará disponível em `http://localhost:3000`.   
+=======
+A aplicação estará disponível em `http://localhost:3000`.
+>>>>>>> 404648ae0a80298461a2213dd956a18679ddc872
