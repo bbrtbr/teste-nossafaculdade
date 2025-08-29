@@ -56,15 +56,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const updatedCurso = await prisma.curso.update({
           where: { id },
           data: updateData,
+          
         });
         return res.status(200).json(updatedCurso);
       } catch (error) {
+        console.log(error)
         return res.status(500).json({ message: 'Error updating course' });
       }
 
     case 'DELETE':
       try {
         const { id } = req.body;
+        if (!id) {
+          return res.status(400).json({ message: 'Missing course ID' });
+        }
         await prisma.curso.delete({ where: { id } });
         return res.status(204).end();
       } catch (error) {
@@ -82,7 +87,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       } catch (error) {
         return res.status(500).json({ message: 'Error fetching courses' });
       }
-      
+
     default:
       res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE']);
       return res.status(405).end(`Method ${req.method} Not Allowed`);

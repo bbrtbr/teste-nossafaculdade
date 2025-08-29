@@ -47,8 +47,14 @@ export default function EditCursoModal({ curso, categorias, onClose, onUpdate }:
     setError('');
 
     const cursoData = {
-      ...editedCurso,
+      id: editedCurso.id, 
+      nome: editedCurso.nome,
+      descricao: editedCurso.descricao,
+      preco: editedCurso.preco,
       imagens: editedCurso.imagens.filter(url => url.trim() !== ''),
+      conteudo: editedCurso.conteudo,
+      popular: editedCurso.popular,
+      categoriaId: editedCurso.categoriaId,
     };
 
     try {

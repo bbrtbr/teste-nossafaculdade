@@ -26,13 +26,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET as string, { expiresIn: '1h' });
     
-    // Define o cookie com o token de autenticação
     const serialized = serialize('auth-token', token, {
-      httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: 'lax',
       path: '/',
-      maxAge: 60 * 60 * 24 * 7, // 1 semana
+      maxAge: 60 * 60 * 24 * 7,
     });
 
     res.setHeader('Set-Cookie', serialized);

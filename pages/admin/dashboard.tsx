@@ -32,12 +32,13 @@ export default function Dashboard({ initialCursos, categorias }: DashboardProps)
         const cookies = parseCookies();
         const token = cookies['auth-token'];
 
-        const res = await fetch(`/api/admin/cursos?id=${id}`, {
+        const res = await fetch(`/api/admin/cursos`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
-          credentials: 'include',
+          body: JSON.stringify({ id }), 
         });
 
         if (res.ok) {
@@ -73,7 +74,7 @@ export default function Dashboard({ initialCursos, categorias }: DashboardProps)
     setIsEditModalOpen(false);
     setCursoToEdit(null);
   };
-  
+
   const handleAdd = (newCurso: Curso) => {
     setCursos([newCurso, ...cursos]);
     setIsCreateModalOpen(false);
@@ -123,8 +124,8 @@ export default function Dashboard({ initialCursos, categorias }: DashboardProps)
                 <li key={curso.id} className="p-6 bg-white shadow-xl rounded-xl border border-gray-200 hover:shadow-2xl transition-all duration-300">
                   <div className="h-48 bg-gray-100 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
                     {curso.imagens && curso.imagens.length > 0 ? (
-                      <img 
-                        src={curso.imagens[0]} 
+                      <img
+                        src={curso.imagens[0]}
                         alt={curso.nome}
                         className="h-full w-full object-cover rounded-lg"
                       />
@@ -135,7 +136,7 @@ export default function Dashboard({ initialCursos, categorias }: DashboardProps)
 
                   <h2 className="text-2xl font-bold text-gray-800 mb-2 line-clamp-2">{curso.nome}</h2>
                   <p className="text-gray-600 text-sm mb-3 line-clamp-3">{curso.descricao}</p>
-                  
+
                   <div className="flex justify-between items-center mt-auto">
                     <p className="text-green-600 font-bold text-lg">
                       R$ {Number(curso.preco).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
@@ -177,7 +178,7 @@ export default function Dashboard({ initialCursos, categorias }: DashboardProps)
             onUpdate={handleUpdate}
           />
         )}
-        
+
         {isCreateModalOpen && (
           <div className="fixed inset-0 z-[9999] flex items-start justify-center pt-10 bg-gray-600 bg-opacity-30 overflow-y-auto">
             <CreateCursoModal

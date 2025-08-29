@@ -4,7 +4,7 @@ Este repositório contém o código-fonte de um projeto base Next.js.
 
 ## Pré-requisitos
 
-Antes de começar, verifique se você tem o **Docker** e o **Docker Compose** instalados em sua máquina.
+Antes de começar, verifique se você tem o **Docker** instalado em sua máquina.
 
 ## Configuração do Ambiente Docker
 
@@ -61,4 +61,4 @@ Agora, inicie o servidor de desenvolvimento do Next.js.
 npm run dev
 ```
 
-A aplicação estará disponível em `http://localhost:3000`.
+A aplicação estará disponível em `http://localhost:3000`.   
