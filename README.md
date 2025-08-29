@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# teste-nossafaculdade
 
-## Getting Started
+Este repositório contém o código-fonte de um projeto base Next.js.
 
-First, run the development server:
+## Pré-requisitos
+
+Antes de começar, verifique se você tem o **Docker** e o **Docker Compose** instalados em sua máquina.
+
+## Configuração do Ambiente Docker
+
+1.  **Clone o repositório** e entre no diretório do projeto:
+
+    ```bash
+    git clone https://github.com/bbrtbr/teste-nossafaculdade
+    cd teste-nossafaculdade
+    ```
+
+2.  **Crie o arquivo de variáveis de ambiente** a partir do exemplo fornecido:
+
+    ```bash
+    cp .env.example .env
+    ```
+
+-----
+
+## Executando o Projeto
+
+Siga estas etapas para configurar o banco de dados e rodar a aplicação localmente.
+
+### 1\. Iniciar os Containers do Docker
+
+Este comando iniciará o container do banco de dados (PostgreSQL) e do Adminer (um gerenciador de banco de dados).
+
+```bash
+docker-compose up -d
+```
+
+### 2\. Configurar e Popular o Banco de Dados
+
+Com o banco de dados rodando, use o Prisma para criar a estrutura e inserir os dados iniciais.
+
+```bash
+# Instala as dependências do projeto
+npm install
+
+# Gera o cliente Prisma com base no schema do banco de dados
+npx prisma generate
+
+# Executa as migrações para criar as tabelas no banco de dados
+npx prisma migrate dev
+
+# Insere os dados iniciais (seed) no banco de dados
+npx prisma db seed
+```
+
+### 3\. Rodar a Aplicação
+
+Agora, inicie o servidor de desenvolvimento do Next.js.
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+A aplicação estará disponível em `http://localhost:3000`.
